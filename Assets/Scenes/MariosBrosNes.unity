@@ -514,6 +514,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4346354858846454623, guid: 456a5f037809df74c90a4fe07ad81f97, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346354858846454623, guid: 456a5f037809df74c90a4fe07ad81f97, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346354858846454623, guid: 456a5f037809df74c90a4fe07ad81f97, type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5785627246489611421, guid: 456a5f037809df74c90a4fe07ad81f97, type: 3}
       propertyPath: m_Name
       value: Square (8)

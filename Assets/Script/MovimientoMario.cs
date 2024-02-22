@@ -37,12 +37,16 @@ public class MovimientoMario : MonoBehaviour
         if (collision.gameObject.name == "Seta")
         {
             animator.SetLayerWeight(1, 1);
+            Destroy(collision.gameObject);
         }
     }
     private void Movimiento()
     {
         float movX = Input.GetAxis("Horizontal");
-        float movY = Input.GetAxis("Vertical");
+        /*/if (Input.GetButton(movX))
+        {
+            animator.SetBool("Pabajo", suelo);
+        }*/
         Vector2 movilidad = new Vector2(movX * 3, rb.velocity.y);
         rb.velocity = movilidad;
         animator.SetFloat("MovDer", movilidad.x);
