@@ -10,7 +10,7 @@ public class MovimientoMario : MonoBehaviour
     bool salto = false;
     bool suelo = true;
     public GameObject Setilla;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +34,10 @@ public class MovimientoMario : MonoBehaviour
         {
             Setilla.SetActive(true);
         }
+        if (collision.gameObject.name == "Seta")
+        {
+            animator.SetLayerWeight(1, 1);
+        }
     }
     private void Movimiento()
     {
@@ -53,7 +57,7 @@ public class MovimientoMario : MonoBehaviour
         }
         if (salto && suelo)
         {
-            rb.AddForce(Vector2.up * 7, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * 7.5f, ForceMode2D.Impulse);
             salto = false;
             suelo = false;
         }
