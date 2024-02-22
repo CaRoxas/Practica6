@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class MovimientoMario : MonoBehaviour
 {
-    Rigidbody rb;
+    Rigidbody2D rb;
     Animator animator;
     public float velocidad = 3;
     bool salto = false;
     bool suelo = true;
+    public GameObject Setilla;
     
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float movX = Input.GetAxis("Horizontal");
-        float movY = Input.GetAxis("Vertical");
+        Movimiento();
         Saltar();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -30,6 +30,20 @@ public class MovimientoMario : MonoBehaviour
         {
             suelo = true;
         }
+        if (collision.gameObject.name == "MisteryBlock")
+        {
+            Setilla.SetActive(true);
+        }
+    }
+    private void Movimiento()
+    {
+        float movX = Input.GetAxis("Horizontal");
+        float movY = Input.GetAxis("Vertical");
+        Vector2 movilidad = new Vector2(movX * 3, rb.velocity.y);
+        rb.velocity = movilidad;
+        animator.SetFloat("MovDer", movilidad.x);
+        animator.SetFloat("MovIzq", movilidad.x);
+        animator.SetBool("Jump", !suelo);
     }
     private void Saltar()
     {
@@ -39,7 +53,7 @@ public class MovimientoMario : MonoBehaviour
         }
         if (salto && suelo)
         {
-            rb.AddForce(Vector2.up * 5, ForceMode.Impulse);
+            rb.AddForce(Vector2.up * 7, ForceMode2D.Impulse);
             salto = false;
             suelo = false;
         }
