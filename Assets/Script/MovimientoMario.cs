@@ -9,11 +9,23 @@ public class MovimientoMario : MonoBehaviour
     public float velocidad = 3;
     bool salto = false;
     bool suelo = true;
-    public GameObject Setilla;
 
+    //GAMEOBJECTS
+    public GameObject Setilla;
+    
+    //AUDIOS
+    public AudioSource Principal;
+    public AudioSource GameOverNormal;
+    public AudioSource GameOverGoomba;
+    public AudioSource SetaGrande;
+    public AudioSource Saltillo;
+    public AudioSource Moneda;
+    public AudioSource Goombameh;
+    public AudioSource Victoria;
     // Start is called before the first frame update
     void Start()
     {
+        Principal.Play();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -38,15 +50,13 @@ public class MovimientoMario : MonoBehaviour
         {
             animator.SetLayerWeight(1, 1);
             Destroy(collision.gameObject);
+            SetaGrande.Play();
         }
     }
     private void Movimiento()
     {
         float movX = Input.GetAxis("Horizontal");
-        /*/if (Input.GetButton(movX))
-        {
-            animator.SetBool("Pabajo", suelo);
-        }*/
+        float movY = Input.GetAxis("Vertical");
         Vector2 movilidad = new Vector2(movX * 3, rb.velocity.y);
         rb.velocity = movilidad;
         animator.SetFloat("MovDer", movilidad.x);
@@ -58,6 +68,7 @@ public class MovimientoMario : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             salto = true;
+            Saltillo.Play();
         }
         if (salto && suelo)
         {
