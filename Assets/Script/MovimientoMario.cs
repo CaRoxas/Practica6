@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MovimientoMario : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class MovimientoMario : MonoBehaviour
     public AudioSource Moneda;
     public AudioSource Goombameh;
     public AudioSource Victoria;
+
+    //SCRIPTS
+    public Goomba ScriptGoomba;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,15 +46,31 @@ public class MovimientoMario : MonoBehaviour
         {
             suelo = true;
         }
-        if (collision.gameObject.name == "MisteryBlock")
+        /*/if (collision.gameObject.name == "MisteryBlock")
         {
             Setilla.SetActive(true);
-        }
+        }*/
         if (collision.gameObject.name == "Seta")
         {
             animator.SetLayerWeight(1, 1);
             Destroy(collision.gameObject);
             SetaGrande.Play();
+        }
+        if (collision.gameObject.name == "Goomba")
+        {
+            animator.SetBool("ChoqueGoom", false);
+            transform.Translate(3 * Vector2.up * Time.deltaTime);
+            GameOverGoomba.Play();
+        }
+        if (animator.layerCount == 1 && collision.gameObject.name == "Goomba")
+        {
+            animator.SetLayerWeight(0, 1);
+        }
+        if (collision.gameObject.name == "Goomba" && transform.position.y >= 2)
+        {
+            ScriptGoomba.AnimacionGoomba();
+            Destroy(collision.gameObject);
+            Goombameh.Play();
         }
     }
     private void Movimiento()
@@ -76,5 +96,9 @@ public class MovimientoMario : MonoBehaviour
             salto = false;
             suelo = false;
         }
+    }
+    void PauseGame()
+    {
+        Time.timeScale = 0;
     }
 }
