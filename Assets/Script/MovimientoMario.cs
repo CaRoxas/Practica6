@@ -11,6 +11,9 @@ public class MovimientoMario : MonoBehaviour
     bool salto = false;
     bool suelo = true;
 
+    const int CAPA_MARIO_CHIQUITO = 0;
+    const int CAPA_MARIO_GRANDOTE = 1;
+
     //GAMEOBJECTS
     public GameObject Setilla;
     
@@ -56,15 +59,17 @@ public class MovimientoMario : MonoBehaviour
             Destroy(collision.gameObject);
             SetaGrande.Play();
         }
-        if (collision.gameObject.name == "Goomba")
+        if (animator.GetLayerWeight(CAPA_MARIO_GRANDOTE) == 0 && collision.gameObject.name == "Goomba")
         {
             animator.SetBool("ChoqueGoom", false);
+            // addforce
             transform.Translate(3 * Vector2.up * Time.deltaTime);
             GameOverGoomba.Play();
         }
-        if (animator.layerCount == 1 && collision.gameObject.name == "Goomba")
+        if (animator.GetLayerWeight(CAPA_MARIO_GRANDOTE) == 1 && collision.gameObject.name == "Goomba")
         {
-            animator.SetLayerWeight(0, 1);
+            animator.SetLayerWeight(CAPA_MARIO_CHIQUITO, 1);
+            animator.SetLayerWeight(CAPA_MARIO_GRANDOTE, 0);
         }
         if (collision.gameObject.name == "Goomba" && transform.position.y >= 2)
         {
